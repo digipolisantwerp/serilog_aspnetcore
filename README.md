@@ -1,4 +1,4 @@
-# Serilog Toolbox
+# Serilog extensions library
 
 Extensions for the Serilog logging framework.
 
@@ -13,7 +13,7 @@ Extensions for the Serilog logging framework.
 
 ## Installation
 
-To add the toolbox to a project, you add the package to the project.json :
+To add the library to a project, you add the package to the project.json :
 
 ``` json 
 "dependencies": {

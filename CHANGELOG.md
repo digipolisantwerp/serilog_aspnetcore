@@ -1,4 +1,4 @@
-# Serilog Toolbox
+# Serilog extensions library
 
 ## 1.0.0
 

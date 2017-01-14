@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
+using Digipolis.Serilog.Enrichers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Serilog.Core;
 using Xunit;
 
-namespace Digipolis.Serilog.UnitTests.Options
+namespace Digipolis.Serilog.UnitTests.Startup
 {
     public class AddSerilogExtensionsTests
     {
@@ -14,7 +16,7 @@ namespace Digipolis.Serilog.UnitTests.Options
             var services = new ServiceCollection();
             var ex = Assert.Throws<ArgumentNullException>(() => services.AddSerilogExtensions(null));
             Assert.Equal("setupAction", ex.ParamName);
-            Assert.Contains("SerilogExtensionsOptions can not be null.", ex.Message);
+            Assert.Contains("setupAction can not be null.", ex.Message);
         }
 
         [Fact]
@@ -25,6 +27,24 @@ namespace Digipolis.Serilog.UnitTests.Options
 
             var registrations = services.Where(sd => sd.ServiceType == typeof(IConfigureOptions<SerilogExtensionsOptions>))
                                         .ToArray();
+
+            Assert.Equal(1, registrations.Count());
+            Assert.Equal(ServiceLifetime.Singleton, registrations[0].Lifetime);
+        }
+
+        [Fact]
+        void EnricherIsRegisteredAsSingleton()
+        {
+            var services = new ServiceCollection();
+            services.AddSerilogExtensions(options => {
+                options.MessageVersion = "2";
+                options.AddMessagEnricher();
+            });
+
+            var registrations = services.Where(sd => sd.ServiceType == typeof(ILogEventEnricher) &&
+                                                     sd.ImplementationType == typeof(MessageEnricher))
+                                                     .ToArray();
+
             Assert.Equal(1, registrations.Count());
             Assert.Equal(ServiceLifetime.Singleton, registrations[0].Lifetime);
         }

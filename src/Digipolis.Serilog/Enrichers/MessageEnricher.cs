@@ -9,14 +9,14 @@ namespace Digipolis.Serilog.Enrichers
     {
         public MessageEnricher(IOptions<SerilogExtensionsOptions> options)
         {
-            _options = options.Value;
+            MessageVersion = options.Value?.MessageVersion ?? LoggingProperties.NullValue;
         }
 
-        private readonly SerilogExtensionsOptions _options;
+        public string MessageVersion { get; private set; }
 
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
-            logEvent.AddOrUpdateProperty(propertyFactory.CreateProperty(LoggingProperties.MessageVersion, _options.MessageVersion ?? LoggingProperties.NullValue));
+            logEvent.AddOrUpdateProperty(propertyFactory.CreateProperty(LoggingProperties.MessageVersion, MessageVersion));
         }
     }
 }

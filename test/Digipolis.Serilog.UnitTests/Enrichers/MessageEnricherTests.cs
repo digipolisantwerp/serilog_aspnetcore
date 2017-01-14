@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Digipolis.Serilog.Enrichers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 namespace Digipolis.Serilog.UnitTests.Enrichers
@@ -13,11 +12,14 @@ namespace Digipolis.Serilog.UnitTests.Enrichers
         void VersionIsSetFromOptions()
         {
             var services = new ServiceCollection();
-            services.Configure<SerilogExtensionsOptions>(options => options.MessageVersion = "5");
+            services.AddOptions();
+            services.Configure<SerilogExtensionsOptions>(opt => opt.MessageVersion = "5");
+
             var serviceProvider = services.BuildServiceProvider();
+            var options = serviceProvider.GetRequiredService<IOptions<SerilogExtensionsOptions>>();
+            var enricher = new MessageEnricher(options);
 
-
-
+            Assert.Equal("5", enricher.MessageVersion);
         }
     }
 }
