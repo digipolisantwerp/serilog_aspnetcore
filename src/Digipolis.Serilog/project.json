@@ -1,22 +1,25 @@
 {
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Extensions for the Serilog logging framework.",
 	"authors": [ "digipolis.be" ],
 	"packOptions": {
-        "tags": [ "Toolbox", "Serilog" ],
-        "repository": {
-            "type": "git",
-            "url": ""
-        },
-        "projectUrl": "",
-        "licenseUrl": ""
-    },
+		"tags": [ "Toolbox", "Serilog", "Digipolis" ],
+		"repository": {
+			"type": "git",
+			"url": "https://github.com/digipolisantwerp/serilog_aspnetcore.git"
+		},
+		"projectUrl": "https://github.com/digipolisantwerp/serilog_aspnetcore",
+		"licenseUrl": "https://github.com/digipolisantwerp/serilog_aspnetcore/LICENSE.txt"
+	},
 	"dependencies": {
 		"NETStandard.Library": "1.6.0",
 		"Serilog.Extensions.Logging": "1.3.1",
 		"Serilog.Settings.Configuration": "2.2.0",
 		"Serilog.Sinks.ElasticSearch": "4.1.1",
-		"Microsoft.Extensions.Options": "1.0.0"
+		"Microsoft.Extensions.Options": "1.0.0",
+		"Microsoft.Extensions.DependencyInjection": "1.0.0",
+		"Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
+		"Microsoft.AspNetCore.Http": "1.0.0"
 	},
 	"frameworks": {
         "netstandard1.6": {

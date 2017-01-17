@@ -1,6 +1,6 @@
 {
 	"version": "1.0.0",
-	"name": "serilog toolbox",
+	"name": "serilog-toolbox",
 	"private": true,
 	"devDependencies": {
 		"gulp": "3.9.0",
