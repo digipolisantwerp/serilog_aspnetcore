@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Digipolis.Serilog.UnitTests.Startup
 {
-    public class AddSerilogExtensionsTests
+    public class AddSerilogExtensionsExtTests
     {
         [Fact]
         void OptionsNullRaisesArgumentNullException()
@@ -60,6 +60,23 @@ namespace Digipolis.Serilog.UnitTests.Startup
 
             var registrations = services.Where(sd => sd.ServiceType == typeof(IHttpContextAccessor) &&
                                                      sd.ImplementationType == typeof(HttpContextAccessor))
+                                                     .ToArray();
+
+            Assert.Equal(1, registrations.Count());
+            Assert.Equal(ServiceLifetime.Singleton, registrations[0].Lifetime);
+        }
+
+        [Fact]
+        void ApplicationLoggerIsRegisteredAsSingleton()
+        {
+            var services = new ServiceCollection();
+            services.AddSerilogExtensions(options => {
+                options.MessageVersion = "2";
+                options.EnableApplicationLogger = true;
+            });
+
+            var registrations = services.Where(sd => sd.ServiceType == typeof(IApplicationLogger) &&
+                                                     sd.ImplementationType == typeof(ApplicationLogger))
                                                      .ToArray();
 
             Assert.Equal(1, registrations.Count());

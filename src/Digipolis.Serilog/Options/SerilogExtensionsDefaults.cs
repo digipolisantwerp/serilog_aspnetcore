@@ -2,7 +2,7 @@
 
 namespace Digipolis.Serilog
 {
-    public class SerilogExtensionsDefaults
+    class SerilogExtensionsDefaults
     {
         public const string MessageVersion = "1";
     }

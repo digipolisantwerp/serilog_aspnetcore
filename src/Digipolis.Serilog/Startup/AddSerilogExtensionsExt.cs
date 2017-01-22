@@ -6,7 +6,7 @@ using Serilog.Core;
 
 namespace Digipolis.Serilog
 {
-    public static class SerilogExtensionsServiceCollectionExt
+    public static class AddSerilogExtensionsExt
     {
         public static IServiceCollection AddSerilogExtensions(this IServiceCollection services, Action<SerilogExtensionsOptions> setupAction)
         {
@@ -18,6 +18,8 @@ namespace Digipolis.Serilog
 
             var options = new SerilogExtensionsOptions();
             setupAction.Invoke(options);
+
+            if ( options.EnableApplicationLogger ) services.AddSingleton<IApplicationLogger, ApplicationLogger>();
 
             foreach ( var type in options.EnricherTypes )
             {

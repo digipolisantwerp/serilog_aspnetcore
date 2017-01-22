@@ -2,7 +2,7 @@
 
 namespace Digipolis.Serilog
 {
-    public class LoggingProperties
+    class LoggingProperties
     {
         public const string Message = "Message";
         public const string MessageVersion = "MessageVersion";

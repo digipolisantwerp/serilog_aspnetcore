@@ -8,6 +8,8 @@ namespace Digipolis.Serilog
     {
         public string MessageVersion { get; set; } = SerilogExtensionsDefaults.MessageVersion;
 
+        public bool EnableApplicationLogger { get; set; }
+
         readonly List<Type> _enricherTypes = new List<Type>();
         public IEnumerable<Type> EnricherTypes
         {
