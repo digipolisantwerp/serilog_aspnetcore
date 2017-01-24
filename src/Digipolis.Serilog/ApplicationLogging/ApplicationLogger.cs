@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
 
-namespace Digipolis.Serilog
+namespace Digipolis.Logging
 {
     public class ApplicationLogger : IApplicationLogger
     {

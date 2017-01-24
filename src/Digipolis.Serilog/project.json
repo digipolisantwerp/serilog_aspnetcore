@@ -1,9 +1,9 @@
 {
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "Extensions for the Serilog logging framework.",
 	"authors": [ "digipolis.be" ],
 	"packOptions": {
-		"tags": [ "Toolbox", "Serilog", "Digipolis" ],
+		"tags": [ "Toolbox", "Serilog", "Digipolis", "Logging", "ACPaaS" ],
 		"repository": {
 			"type": "git",
 			"url": "https://github.com/digipolisantwerp/serilog_aspnetcore.git"

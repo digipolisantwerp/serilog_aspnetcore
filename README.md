@@ -17,7 +17,7 @@ To add the library to a project, you add the package to the project.json :
 
 ``` json 
 "dependencies": {
-    "Digipolis.Serilog":  "1.0.0"
+    "Digipolis.Serilog":  "1.2.1"
  }
 ``` 
 

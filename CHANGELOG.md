@@ -1,5 +1,9 @@
 # Serilog extensions library
 
+## 1.2.1
+
+- consolidation of namespaces.
+
 ## 1.2.0
 
 - application logger.

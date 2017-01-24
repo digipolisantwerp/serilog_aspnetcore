@@ -3,10 +3,10 @@
 	"description": "Serilog Toolbox unit tests.",
 	"authors": [ "digipolis.be" ],
 	"packOptions": {
-		"tags": [ "Toolbox", "Serilog", "Unit Tests" ],
+		"tags": [ "Toolbox", "Serilog", "Unit Tests", "Digipolis", "ACPaaS" ],
 		"repository": {
 			"type": "git",
-			"url": ""
+			"url": "http://github.com/digipolisantwerp/serilog_aspnetcore.git"
 		},
 		"projectUrl": "http://github.com/digipolisantwerp/serilog_aspnetcore",
 		"licenseUrl": "http://github.com/digipolisantwerp/serilog_aspnetcore/LICENSE.txt"

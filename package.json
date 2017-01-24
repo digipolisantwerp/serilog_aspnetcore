@@ -1,6 +1,6 @@
 {
-	"version": "1.0.0",
-	"name": "serilog-toolbox",
+	"version": "1.2.1",
+	"name": "digipolis-serilog-extensions",
 	"private": true,
 	"devDependencies": {
 		"gulp": "3.9.0",
