@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using Serilog.Core;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Digipolis.Serilog
 {
     public class SerilogExtensionsOptions
     {
-        public string MessageVersion { get; set; } = SerilogExtensionsDefaults.MessageVersion;
-
-        public bool EnableApplicationLogger { get; set; }
-
-        readonly List<Type> _enricherTypes = new List<Type>();
-        public IEnumerable<Type> EnricherTypes
+        public SerilogExtensionsOptions(IServiceCollection services)
         {
-            get { return _enricherTypes; }
+            if ( services == null ) throw new ArgumentNullException(nameof(services), $"{nameof(services)} is null.");
+
+            ApplicationServices = services;
         }
 
-        public void AddEnricher<TType>() where TType : ILogEventEnricher
-        {
-            _enricherTypes.Add(typeof(TType));
-        }
+        public  IServiceCollection ApplicationServices { get; private set; }
     }
 }

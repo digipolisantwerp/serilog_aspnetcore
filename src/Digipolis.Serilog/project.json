@@ -1,5 +1,5 @@
 {
-	"version": "1.2.1",
+	"version": "2.0.1",
 	"description": "Extensions for the Serilog logging framework.",
 	"authors": [ "digipolis.be" ],
 	"packOptions": {
@@ -14,8 +14,6 @@
 	"dependencies": {
 		"NETStandard.Library": "1.6.0",
 		"Serilog.Extensions.Logging": "1.3.1",
-		"Serilog.Settings.Configuration": "2.2.0",
-        "Serilog.Sinks.ElasticSearch": "4.1.1",
         "Microsoft.Extensions.Logging": "1.0.0",
 		"Microsoft.Extensions.Options": "1.0.0",
         "Microsoft.Extensions.DependencyInjection": "1.0.0",

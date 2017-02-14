@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Linq;
-using Digipolis.Serilog.Enrichers;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Digipolis.Serilog.UnitTests.Options
@@ -8,26 +7,19 @@ namespace Digipolis.Serilog.UnitTests.Options
     public class SerilogExtensionsOptionsTests
     {
         [Fact]
-        void MessageVersionIsInitialized()
+        void ServicesNullRaisesArgumentNullException()
         {
-            var options = new SerilogExtensionsOptions();
-            Assert.Equal(SerilogExtensionsDefaults.MessageVersion, options.MessageVersion);
+            var ex = Assert.Throws<ArgumentNullException>(() => new SerilogExtensionsOptions(null));
+            Assert.Equal("services", ex.ParamName);
+            Assert.Contains("services is null", ex.Message);
         }
 
         [Fact]
-        void EnricherTypesIsInitialized()
+        void ApplicationServicesIsSet()
         {
-            var options = new SerilogExtensionsOptions();
-            Assert.NotNull(options.EnricherTypes);
-            Assert.Equal(0, options.EnricherTypes.Count());
-        }
-
-        [Fact]
-        void EnricherTypeIsAdded()
-        {
-            var options = new SerilogExtensionsOptions();
-            options.AddEnricher<MessageEnricher>();
-            Assert.Collection(options.EnricherTypes, (item) => Assert.Equal(typeof(MessageEnricher), item));
+            var services = new ServiceCollection();
+            var options = new SerilogExtensionsOptions(services);
+            Assert.Same(services, options.ApplicationServices);
         }
     }
 }

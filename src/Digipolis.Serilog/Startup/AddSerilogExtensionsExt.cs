@@ -1,8 +1,5 @@
 ﻿using System;
-using Digipolis.Logging;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Serilog.Core;
 
 namespace Digipolis.Serilog
@@ -13,19 +10,8 @@ namespace Digipolis.Serilog
         {
             if ( setupAction == null ) throw new ArgumentNullException(nameof(setupAction), $"{nameof(setupAction)} can not be null.");
 
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            services.Configure(setupAction);
-
-            var options = new SerilogExtensionsOptions();
+            var options = new SerilogExtensionsOptions(services);
             setupAction.Invoke(options);
-
-            if ( options.EnableApplicationLogger ) services.AddSingleton<IApplicationLogger, ApplicationLogger>();
-
-            foreach ( var type in options.EnricherTypes )
-            {
-                services.AddSingleton(typeof(ILogEventEnricher), type);
-            }
 
             return services;
         }
