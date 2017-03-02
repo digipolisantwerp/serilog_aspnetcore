@@ -1,13 +1,19 @@
 # Serilog extensions library
 
-Extensions for the Serilog logging framework.
+Digipolis Antwerp uses the Elastic stack for logging. Instead of writing our own framework for this logging engine, we use the excellent [Serilog](https://serilog.net/) library.  
+Our library adds extensions to the Serilog framework, specific to the way we use the Elastic stack.
 
 ## Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Installation](#installation)
+- [Usage](#usage)
+- [Extending](#extending)
+- [Breaking changes in version 2](#breaking-changes-in-version-2)
+- [Enrichment extension packages](#enrichment-extension-packages)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -55,7 +61,7 @@ services.AddSerilogExtensions(options => {
 });
 ```  
 
-This way, your enrichers can have other services injected into them at runtime.
+This way, your enrichers can have other services injected into them at runtime by the .NET Core injection framework.
 
 Registered enrichers are added to the Serilog pipeline in the **Configure** method of the **Startup** class when configuring the Serilog logging framework : 
 
@@ -70,7 +76,135 @@ Log.Logger = new LoggerConfiguration()
 loggerFactory.AddSerilog(dispose: true);
 ```  
 
-## Already existing extension packages
+## Breaking changes in version 2
+
+If you upgrade from version 1.x to version 2.x there are some changes you have to make in your project.
+
+Some of the extensions that this package added to the Serilog Elastic Sink are now part of the official Serilog package(s) and were thus removed from this library. The consequence is that you don't get the implicit reference to the Serilog packages anymore when you add this package to your project.  **You have to add the Serilog packages to your own project.json** :
+
+```json
+"Digipolis.Serilog": "2.0.1",
+"Digipolis.Serilog.ApplicationServices": "2.0.0",
+"Digipolis.Serilog.AuthService": "2.0.0",
+"Digipolis.Serilog.Correlation": "2.0.0",
+"Digipolis.Serilog.Message": "1.0.0",
+"Serilog.Settings.Configuration": "2.2.0",
+"Serilog.Sinks.Elasticsearch": "5.0.0",
+```  
+
+If you were using the IApplicationLogger in your project, you will now have to provide one yourself, since it has been removed from this version of the Digipolis.Serilog package (it has been moved to our [ASP.NET Core API project generator](https://github.com/digipolisantwerp/generator-dgp-api-aspnetcore_yeoman)).  
+Here's the one that was included in the previous version : 
+
+```csharp
+public interface IApplicationLogger : ILogger<ApplicationLogger>
+{ }
+
+public class ApplicationLogger : IApplicationLogger
+{
+    public ApplicationLogger(ILogger<ApplicationLogger> logger)
+    {
+        _logger = logger;
+    }
+
+    private readonly ILogger<ApplicationLogger> _logger;
+
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+    {
+        _logger.Log(logLevel, eventId, state, exception, formatter);
+    }
+
+    public bool IsEnabled(LogLevel logLevel)
+    {
+        return _logger.IsEnabled(logLevel);
+    }
+
+    public IDisposable BeginScope<TState>(TState state)
+    {
+        return _logger.BeginScope(state);
+    }
+}
+```  
+
+Don't forget to register it in the .NET Core DI container if you want to inject it in your classes : 
+
+```csharp 
+services.AddSingleton<IApplicationLogger, ApplicationLogger>();
+```  
+
+In the Digipolis architecture, 2 types of events are used while logging : system-logevents and application-logevents.  
+System-logevents are meant for system administrators and developers that want to diagnose problems with the application. They can contain stacktraces and other internal information. They will not be visible for normal users of the application.  
+Application-logevents are used for functional logging like for example completed steps in a business flow. In most applications, these log-events will also be shown to a user of the application so can not contain technical details.  
+
+Together with the following example configuration, a developer can easily use ILogger<T> to send system-logevents and IApplicationLogger to send application-logevents to Elasticsearch.
+
+**loggingconfig.json** :
+
+```json
+{
+  "SystemLog": {
+    "WriteTo": [
+    {
+      "Name": "Elasticsearch",
+      "Args": {
+        "nodeUris": "http://localhost:9200",
+        "indexFormat": "logstash-myapp-{0:yyyy.MM.dd}",
+        "templateName": "myapp-template",
+        "typeName": "SystemLogEvent",
+        "restrictedToMinimumLevel": "Debug"
+        }
+      }],
+      "Enrich": [ "FromLogContext" ]
+	},
+    "ApplicationLog": {
+      "WriteTo": [
+      {
+        "Name": "Elasticsearch",
+        "Args": {
+          "nodeUris": "http://localhost:9200",
+          "indexFormat": "logstash-myapp-{0:yyyy.MM.dd}",
+          "templateName": "myapp-template",
+          "typeName": "AppLogEvent",
+          "restrictedToMinimumLevel": "Information"
+        }
+      }],
+      "Enrich": [ "FromLogContext" ]
+  }
+}
+```  
+
+**Startup.Configure** :
+
+```csharp  
+var enrichers = app.ApplicationServices.GetServices<ILogEventEnricher>().ToArray();
+
+var systemLogSection = Configuration.GetSection("SystemLog");
+var applicationLogSection = Configuration.GetSection("ApplicationLog");
+
+var appLogger = typeof(ApplicationLogger).FullName;
+
+Log.Logger = new LoggerConfiguration()
+                .Enrich.With(enrichers)
+                .WriteTo.Logger(l => l.ReadFrom.ConfigurationSection(systemLogSection).Filter.ByExcluding(Matching.FromSource(appLogger)))
+                .WriteTo.Logger(l => l.ReadFrom.ConfigurationSection(applicationLogSection).Filter.ByIncludingOnly(Matching.FromSource(appLogger)))
+                .CreateLogger();
+
+loggerFactory.AddSerilog(dispose: true);
+
+appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);
+```  
+
+You can find a more detailed example in our ASP.NET Core API project generator : https://github.com/digipolisantwerp/generator-dgp-api-aspnetcore_yeoman.
+
+The **MessageEnricher** has been moved to its own package. If you want to use it, you will have to add the package to your project.json (example is higher up in this chapter).  
+Consequently the MessageVersion option has been moved and is now configured with the following code : 
+
+```csharp  
+ervices.AddSerilogExtensions(options => {
+                options.AddMessagEnricher(msgOptions => msgOptions.MessageVersion = "1");
+            });
+```  
+
+## Enrichment extension packages
 
 [Digipolis.Serilog.ApplicationServices](https://github.com/digipolisantwerp/serilog-applicationservices_aspnetcore)  
 [Digipolis.Serilog.AuthService](https://github.com/digipolisantwerp/serilog-authservice_aspnetcore)  
