@@ -1,12 +1,10 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0869A6B7-8248-9102-BC06-E9F7DC3D142B}"
 	ProjectSection(SolutionItems) = preProject
 		CHANGELOG.md = CHANGELOG.md
-		global.json = global.json
 		nuget.config = nuget.config
 		README.md = README.md
 	EndProjectSection
@@ -18,9 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{077A8D89-128
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6F04A96A-0335-EC81-7780-AF7DFE9931A9}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Digipolis.Serilog", "src\Digipolis.Serilog\Digipolis.Serilog.xproj", "{813D15A7-2FA8-B758-6149-8C4BEE7703C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Digipolis.Serilog", "src\Digipolis.Serilog\Digipolis.Serilog.csproj", "{813D15A7-2FA8-B758-6149-8C4BEE7703C1}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Digipolis.Serilog.UnitTests", "test\Digipolis.Serilog.UnitTests\Digipolis.Serilog.UnitTests.xproj", "{FB3C1015-9836-14BF-90A8-16E34196E564}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Digipolis.Serilog.UnitTests", "test\Digipolis.Serilog.UnitTests\Digipolis.Serilog.UnitTests.csproj", "{FB3C1015-9836-14BF-90A8-16E34196E564}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

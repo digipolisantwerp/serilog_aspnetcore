@@ -1,5 +1,9 @@
 # Serilog extensions library
 
+## 3.0.0
+
+- conversion to csproj en MSBuild.
+
 ## 1.2.1
 
 - consolidation of namespaces.
