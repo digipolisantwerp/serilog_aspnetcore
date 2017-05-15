@@ -88,7 +88,7 @@ loggerFactory.AddSerilog(dispose: true);
 
 If you upgrade from version 1.x to version 2.x there are some changes you have to make in your project.
 
-Some of the extensions that this package added to the Serilog Elastic Sink are now part of the official Serilog package(s) and were thus removed from this library. The consequence is that you don't get the implicit reference to the Serilog packages anymore when you add this package to your project.  **You have to add the Serilog packages to your own csproj file** :
+Some of the extensions that this package added to the Serilog Elastic Sink are now part of the official Serilog package(s) and were thus removed from this library. The consequence is that you don't get the implicit reference to the Serilog packages anymore when you add this package to your project.  **You have to add the Serilog packages to your own csproj project file** :
 
 ```xml
   <ItemGroup>
