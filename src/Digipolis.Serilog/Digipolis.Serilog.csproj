@@ -4,7 +4,7 @@
     <Description>Extensions for the Serilog logging framework.</Description>
     <VersionPrefix>4.0.0</VersionPrefix>
     <Authors>digipolis.be</Authors>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Digipolis.Serilog</AssemblyName>
     <PackageId>Digipolis.Serilog</PackageId>
     <PackageTags>Toolbox;Serilog;Digipolis;Logging;ACPaaS</PackageTags>
@@ -12,7 +12,7 @@
     <PackageLicenseUrl>https://github.com/digipolisantwerp/serilog_aspnetcore/LICENSE.txt</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/digipolisantwerp/serilog_aspnetcore.git</RepositoryUrl>
-    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+    <NetStandardImplicitPackageVersion>2.0.0</NetStandardImplicitPackageVersion>
     <AssetTargetFallback>$(AssetTargetFallback);dnxcore50</AssetTargetFallback>
     <Version>4.0.0</Version>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
