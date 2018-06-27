@@ -9,6 +9,7 @@ Our library adds extensions to the Serilog framework, specific to the way we use
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
+- [Target framework](#target-framework)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Extending](#extending)
@@ -17,22 +18,20 @@ Our library adds extensions to the Serilog framework, specific to the way we use
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## Target framework
+
+This package targets **.NET Standard 2.0**.
+
+For .NET Standard 1.6, use version 3.x. The source code is available in [this legacy branch](https://github.com/digipolisantwerp/serilog_aspnetcore/tree/legacy-3.x).
+
 ## Installation
 
 To add the library to a project, you add the package to the csproj file :
 
 ```xml
   <ItemGroup>
-    <PackageReference Include="Digipolis.Serilog" Version="3.0.0" />
+    <PackageReference Include="Digipolis.Serilog" Version="4.0.0" />
   </ItemGroup>
-``` 
-
-or if your project still works with project.json :
-
-``` json 
-"dependencies": {
-    "Digipolis.Serilog":  "3.0.0"
- }
 ``` 
 
 In Visual Studio you can also use the NuGet Package Manager to do this.
@@ -92,29 +91,18 @@ Some of the extensions that this package added to the Serilog Elastic Sink are n
 
 ```xml
   <ItemGroup>
-    <PackageReference Include="Digipolis.Serilog" Version="3.0.0" />
-	<PackageReference Include="Digipolis.Serilog.ApplicationServices" Version="3.0.0" />
-	<PackageReference Include="Digipolis.Serilog.AuthService" Version="3.0.0" />
-	<PackageReference Include="Digipolis.Serilog.Correlation" Version="3.0.0" />
-	<PackageReference Include="Digipolis.Serilog.Message" Version="1.0.0" />
-	<PackageReference Include="Serilog.Settings.Configuration" Version="3.0.0" />
-	<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="5.0.0" />
+    <PackageReference Include="Digipolis.Serilog" Version="4.0.0" />
+    <PackageReference Include="Digipolis.Serilog.ApplicationServices" Version="3.0.0" />
+    <PackageReference Include="Digipolis.Serilog.AuthService" Version="3.0.0" />
+    <PackageReference Include="Digipolis.Serilog.Correlation" Version="3.0.0" />
+    <PackageReference Include="Digipolis.Serilog.Message" Version="1.0.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.0" />
+    <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="5.0.0" />
   </ItemGroup>
 ``` 
 
-of project.json
+If you were using the IApplicationLogger in your project, you will now have to provide one yourself, since it has been removed from this version of the Digipolis.Serilog package (it has been moved to our [ASP.NET Core API project generator](https://github.com/digipolisantwerp/generator-dgp-api-aspnetcore_yeoman)).
 
-```json
-"Digipolis.Serilog": "3.0.0",
-"Digipolis.Serilog.ApplicationServices": "3.0.0",
-"Digipolis.Serilog.AuthService": "3.0.0",
-"Digipolis.Serilog.Correlation": "3.0.0",
-"Digipolis.Serilog.Message": "1.0.0",
-"Serilog.Settings.Configuration": "3.0.0",
-"Serilog.Sinks.Elasticsearch": "5.0.0",
-```  
-
-If you were using the IApplicationLogger in your project, you will now have to provide one yourself, since it has been removed from this version of the Digipolis.Serilog package (it has been moved to our [ASP.NET Core API project generator](https://github.com/digipolisantwerp/generator-dgp-api-aspnetcore_yeoman)).  
 Here's the one that was included in the previous version : 
 
 ```csharp
