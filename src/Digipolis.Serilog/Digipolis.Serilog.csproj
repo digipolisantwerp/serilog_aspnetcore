@@ -9,7 +9,7 @@
     <PackageId>Digipolis.Serilog</PackageId>
     <PackageTags>Toolbox;Serilog;Digipolis;Logging;ACPaaS</PackageTags>
     <PackageProjectUrl>https://github.com/digipolisantwerp/serilog_aspnetcore</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/digipolisantwerp/serilog_aspnetcore/LICENSE.txt</PackageLicenseUrl>
+    <PackageLicense>https://github.com/digipolisantwerp/serilog_aspnetcore/LICENSE.txt</PackageLicense>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/digipolisantwerp/serilog_aspnetcore.git</RepositoryUrl>
     <NetStandardImplicitPackageVersion>2.0.0</NetStandardImplicitPackageVersion>
