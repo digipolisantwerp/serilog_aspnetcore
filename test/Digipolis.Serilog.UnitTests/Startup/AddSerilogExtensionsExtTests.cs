@@ -22,6 +22,7 @@ namespace Digipolis.Serilog.UnitTests.Startup
 
             var services = new ServiceCollection();
             services.AddSerilogExtensions(options => isInvoked = true);
+
             Assert.True(isInvoked);
         }
     }
