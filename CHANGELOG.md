@@ -1,5 +1,8 @@
 # Serilog extensions library
 
+## 5.0.0
+-Upgrade to .NET Standard 2.1
+
 ## 4.0.0
  -Upgrade dependencies for .Net Core 2.0
 
