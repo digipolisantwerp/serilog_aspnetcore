@@ -1,5 +1,8 @@
 # Serilog extensions library
 
+## 7.0.0
+ -Upgrade to net7.0
+
 ## 5.0.0
  -Upgrade to net5.0
 

@@ -1,31 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Description>Extensions for the Serilog logging framework.</Description>
-    <VersionPrefix>5.0.0</VersionPrefix>
-    <Authors>digipolis.be</Authors>
-    <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>Digipolis.Serilog</AssemblyName>
-    <PackageId>Digipolis.Serilog</PackageId>
-    <PackageTags>Toolbox;Serilog;Digipolis;Logging;ACPaaS</PackageTags>
-    <PackageProjectUrl>https://github.com/digipolisantwerp/serilog_aspnetcore</PackageProjectUrl>
-    <PackageLicense>https://github.com/digipolisantwerp/serilog_aspnetcore/LICENSE.txt</PackageLicense>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/digipolisantwerp/serilog_aspnetcore.git</RepositoryUrl>
-    <NetStandardImplicitPackageVersion>2.0.0</NetStandardImplicitPackageVersion>
-    <AssetTargetFallback>$(AssetTargetFallback);dnxcore50</AssetTargetFallback>
-    <Version>5.0.0</Version>
-    <AssemblyVersion>5.0.0.0</AssemblyVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Description>Extensions for the Serilog logging framework.</Description>
+		<VersionPrefix>7.0.0</VersionPrefix>
+		<Authors>digipolis.be</Authors>
+		<TargetFramework>net7.0</TargetFramework>
+		<AssemblyName>Digipolis.Serilog</AssemblyName>
+		<PackageId>Digipolis.Serilog</PackageId>
+		<PackageTags>Toolbox;Serilog;Digipolis;Logging;ACPaaS</PackageTags>
+		<PackageProjectUrl>https://github.com/digipolisantwerp/serilog_aspnetcore</PackageProjectUrl>
+		<PackageLicense>https://github.com/digipolisantwerp/serilog_aspnetcore/LICENSE.txt</PackageLicense>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/digipolisantwerp/serilog_aspnetcore.git</RepositoryUrl>
+		<NetStandardImplicitPackageVersion>2.0.0</NetStandardImplicitPackageVersion>
+		<AssetTargetFallback>$(AssetTargetFallback);dnxcore50</AssetTargetFallback>
+		<Version>7.0.0</Version>
+		<AssemblyVersion>7.0.0.0</AssemblyVersion>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
+		<PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+	</ItemGroup>
 
 </Project>

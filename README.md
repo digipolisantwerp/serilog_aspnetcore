@@ -20,9 +20,7 @@ Our library adds extensions to the Serilog framework, specific to the way we use
 
 ## Target framework
 
-This package targets **.NET Standard 2.0**.
-
-For .NET Standard 1.6, use version 3.x. The source code is available in [this legacy branch](https://github.com/digipolisantwerp/serilog_aspnetcore/tree/legacy-3.x).
+This package targets **.NET 7.0**.
 
 ## Installation
 
@@ -30,7 +28,7 @@ To add the library to a project, you add the package to the csproj file :
 
 ```xml
   <ItemGroup>
-    <PackageReference Include="Digipolis.Serilog" Version="4.0.0" />
+    <PackageReference Include="Digipolis.Serilog" Version="7.0.0" />
   </ItemGroup>
 ``` 
 
@@ -87,15 +85,15 @@ loggerFactory.AddSerilog(dispose: true);
 
 If you upgrade from version 1.x to version 2.x there are some changes you have to make in your project.
 
-Some of the extensions that this package added to the Serilog Elastic Sink are now part of the official Serilog package(s) and were thus removed from this library. The consequence is that you don't get the implicit reference to the Serilog packages anymore when you add this package to your project.  **You have to add the Serilog packages to your own csproj project file** :
+Some of the extensions that this package added to the Serilog Elastic Sink are now part of the official Serilog package(s) and were thus removed from this library. 
+The consequence is that you don't get the implicit reference to the Serilog packages anymore when you add this package to your project.  
+**You have to add the Serilog packages to your own csproj project file** :
 
 ```xml
   <ItemGroup>
     <PackageReference Include="Digipolis.Serilog" Version="4.0.0" />
     <PackageReference Include="Digipolis.Serilog.ApplicationServices" Version="3.0.0" />
-    <PackageReference Include="Digipolis.Serilog.AuthService" Version="3.0.0" />
     <PackageReference Include="Digipolis.Serilog.Correlation" Version="3.0.0" />
-    <PackageReference Include="Digipolis.Serilog.Message" Version="1.0.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.0" />
     <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="5.0.0" />
   </ItemGroup>
@@ -184,42 +182,12 @@ Together with the following example configuration, a developer can easily use IL
 
 **Startup.Configure** :
 
-```csharp  
-var enrichers = app.ApplicationServices.GetServices<ILogEventEnricher>().ToArray();
+You can find a detailed example of configuring Serilog in Program.cs and Startup.cs in our ASP.NET Core API project generator : https://github.com/digipolisantwerp/generator-dgp-api-aspnetcore_yeoman.
 
-var systemLogSection = Configuration.GetSection("SystemLog");
-var applicationLogSection = Configuration.GetSection("ApplicationLog");
-
-var appLogger = typeof(ApplicationLogger).FullName;
-
-Log.Logger = new LoggerConfiguration()
-                .Enrich.With(enrichers)
-                .WriteTo.Logger(l => l.ReadFrom.ConfigurationSection(systemLogSection).Filter.ByExcluding(Matching.FromSource(appLogger)))
-                .WriteTo.Logger(l => l.ReadFrom.ConfigurationSection(applicationLogSection).Filter.ByIncludingOnly(Matching.FromSource(appLogger)))
-                .CreateLogger();
-
-loggerFactory.AddSerilog(dispose: true);
-
-appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);
-```  
-
-You can find a more detailed example in our ASP.NET Core API project generator : https://github.com/digipolisantwerp/generator-dgp-api-aspnetcore_yeoman.
-
-The **MessageEnricher** has been moved to its own package. If you want to use it, you will have to add the package to your csproj file (example is higher up in this chapter).  
-Consequently the MessageVersion option has been moved and is now configured with the following code : 
-
-```csharp  
-services.AddSerilogExtensions(options => {
-                options.AddMessagEnricher(msgOptions => msgOptions.MessageVersion = "1");
-            });
-```  
 
 ## Enrichment extension packages
 
-[Digipolis.Serilog.ApplicationServices](https://github.com/digipolisantwerp/serilog-applicationservices_aspnetcore)  
-[Digipolis.Serilog.AuthService](https://github.com/digipolisantwerp/serilog-authservice_aspnetcore)  
-[Digipolis.Serilog.Correlation](https://github.com/digipolisantwerp/serilog-correlation_aspnetcore)  
-[Digipolis.Serilog.Message](https://github.com/digipolisantwerp/serilog-message_aspnetcore)  
+[Digipolis.Serilog.Correlation](https://github.com/digipolisantwerp/serilog-correlation_aspnetcore)
 
 ## Contributing
 

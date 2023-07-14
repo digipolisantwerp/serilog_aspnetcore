@@ -1,6 +1,5 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
-using Serilog.Core;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Digipolis.Serilog
 {
