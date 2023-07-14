@@ -1,5 +1,8 @@
 # Serilog extensions library
 
+## 7.0.1
+ - allow WithRegisteredEnrichers to work immediately with IServiceProvider
+
 ## 7.0.0
  -Upgrade to net7.0
 
